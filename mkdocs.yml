@@ -1,0 +1,19 @@
+site_name: Django REST Framework Tree Router
+
+nav:
+  - Home: index.md
+  - Examples: examples.md
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:  # https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+    - python
+    - json
+    - console
+
+markdown_extensions:
+  - pymdownx.superfences:
+
+extra_css:
+  - css/docs.css
