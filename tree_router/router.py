@@ -51,7 +51,7 @@ class TreeRouter(DefaultRouter):
         name = name if name is not None else self.APIRootView.__name__
         self.root_view_name = name
         self.APIRootView = _new_root_view(name, self.APIRootView, documentation)  # pylint: disable=C0103
-        self.subroutes: Dict[str, DefaultRouter] = subrouters or {}
+        self.subrouters: Dict[str, DefaultRouter] = subrouters or {}
 
         super().__init__(**kwargs)
 
@@ -87,7 +87,7 @@ class TreeRouter(DefaultRouter):
             else:
                 api_root_dict[prefix] = basename, kwargs
 
-        for basename in self.subroutes:
+        for basename in self.subrouters:
             api_root_dict[rf"{basename}"] = basename, {}
 
         return self.APIRootView.as_view(api_root_dict=api_root_dict)
@@ -109,7 +109,7 @@ class TreeRouter(DefaultRouter):
         if self.include_format_suffixes:
             urls = format_suffix_patterns(urls)
 
-        for basename, router in self.subroutes.items():
+        for basename, router in self.subrouters.items():
             router.root_view_name = basename
             router.APIRootView = _new_root_view(basename, router.APIRootView, router.APIRootView.__doc__)
             urls.append(re_path(rf"^{basename}/", include(router.urls)))
