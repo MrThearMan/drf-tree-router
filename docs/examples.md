@@ -49,7 +49,7 @@ sub_router.register(r"subview", APIView, "subview")
 router = TreeRouter(
     name="router",
     documentation="This is my routers documentation",
-    subroutes={
+    subrouters={
         "sub_router": sub_router,
     },
 )
