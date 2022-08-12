@@ -7,7 +7,10 @@
 [![GitHub Last Commit][repo-badge]][repo]
 [![GitHub Issues][issues-badge]][issues]
 [![Downloads][downloads-badge]][pypi]
+
 [![Python Version][version-badge]][pypi]
+[![Django Version][django-badge]][pypi]
+[![DRF Version][drf-badge]][pypi]
 
 ```shell
 pip install drf-tree-router
@@ -33,6 +36,8 @@ of your API endpoints. The router also accepts APIViews in addition to ViewSets.
 [issues-badge]: https://img.shields.io/github/issues-raw/MrThearMan/drf-tree-router
 [version-badge]: https://img.shields.io/pypi/pyversions/drf-tree-router
 [downloads-badge]: https://img.shields.io/pypi/dm/drf-tree-router
+[django-badge]: https://img.shields.io/pypi/djversions/drf-tree-router
+[drf-badge]: https://img.shields.io/badge/drf%20versions-3.7.0%20--%203.12.0-blue
 
 [coverage]: https://coveralls.io/github/MrThearMan/drf-tree-router?branch=main
 [status]: https://github.com/MrThearMan/drf-tree-router/actions/workflows/test.yml
