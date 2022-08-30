@@ -48,6 +48,7 @@ router2 = TreeRouter(name="route")
 router3 = TreeRouter(
     routes={"test1": Viewset},
     subrouters={"plain": router1, "route": router2},
+    redirects={"redirect1": "test2"},
 )
 
 router1.register(r"test1", Viewset, "route2test1")
@@ -56,6 +57,9 @@ router2.register(r"test2", View, "route1test2")
 router3.register(r"test1/(?P<username>.+)", Viewset, "test1-username")
 router3.register(r"test2", View, "test2")
 router3.register(r"test2/(?P<username>\d+)", View, "test2-username", username=0)
+router3.register("test3/<int:username>", View, "test3-username", regex=False, username=1)
+
+router3.redirect(r"redirect2/(?P<username>\d+)", "test2-username", permanent=True, username=0)
 
 
 urlpatterns = [

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "drf-tree-router"
-version = "0.1.1"
+version = "0.2.0"
 description = "Create browsable routes by nesting routers in a tree-like structure."
 authors = [
     "Matti Lamppu <lamppu.matti.akseli@gmail.com>",
@@ -57,7 +57,7 @@ djangorestframework = ">=3.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "7.1.2"
-coverage = "6.4.3"
+coverage = "6.4.4"
 pytest-django = "4.5.2"
 pre-commit = "2.20.0"
 tox = "3.25.1"
