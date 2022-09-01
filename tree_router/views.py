@@ -22,15 +22,22 @@ logger = logging.getLogger(__name__)
 class RedirectView(APIView):
     """View that redirects every request to given path."""
 
-    redirect_path = ""
+    reverse_key = ""
     permanent = False
 
+    schema = None  # exclude from schema
+    _ignore_model_permissions = True
+    authentication_classes = []  # defined by redirected view
+    permission_classes = []  # defined by redirected view
+
     @classmethod
-    def with_args(cls, redirect_path: str, permanent: bool) -> Type["RedirectView"]:
-        return type("RedirectView", (cls,), {"redirect_path": redirect_path, "permanent": permanent})  # type: ignore
+    def with_args(cls, reverse_key: str, permanent: bool) -> Type["RedirectView"]:
+        return type("RedirectView", (cls,), {"reverse_key": reverse_key, "permanent": permanent})  # type: ignore
 
     def general_reponse(self, request, *args, **kwargs):  # pylint: disable=unused-argument
-        return redirect(self.redirect_path, *args, permanent=self.permanent, **kwargs)
+        namespace = request.resolver_match.namespace
+        reverse_key = namespace + ":" + self.reverse_key if namespace else self.reverse_key
+        return redirect(reverse_key, *args, permanent=self.permanent, **kwargs)
 
     def get(self, request, *args, **kwargs):  # pragma: no cover
         return self.general_reponse(request, *args, **kwargs)
@@ -61,8 +68,9 @@ class APIRootView(APIView):
     """Welcome! This is the API root."""
 
     api_root_dict: Dict[str, RootDictEntry] = {}
-    _ignore_model_permissions = False
+
     schema = None  # exclude from schema
+    _ignore_model_permissions = True
 
     authentication_classes = []
     permission_classes = []

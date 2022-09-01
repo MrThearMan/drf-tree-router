@@ -64,4 +64,13 @@ router3.redirect(r"redirect2/(?P<username>\d+)", "test2-username", permanent=Tru
 
 urlpatterns = [
     path("", include(router3.urls)),
+    # path(
+    #     "openapi/",
+    #     get_schema_view(
+    #         title="Your Project",
+    #         description="API for all things",
+    #         version="1.0.0",
+    #     ),
+    #     name="openapi-schema",
+    # ),
 ]
