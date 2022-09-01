@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "drf-tree-router"
-version = "0.2.0"
+version = "0.2.1"
 description = "Create browsable routes by nesting routers in a tree-like structure."
 authors = [
     "Matti Lamppu <lamppu.matti.akseli@gmail.com>",
