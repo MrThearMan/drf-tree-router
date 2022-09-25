@@ -1,6 +1,6 @@
 export DJANGO_SETTINGS_MODULE = tests.django.settings
 
-.PHONY: help dev docs tests test tox hook pre-commit Makefile
+.PHONY: help dev docs tests test tox hook pre-commit pre-commit-update mypy Makefile
 
 # Trick to allow passing commands to make
 # Use quotes (" ") if command contains flags (-h / --help)
@@ -10,16 +10,27 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 %:
 	@:
 
+define helptext
+
+  Commands:
+
+  dev                  Serve manual testing server
+  docs                 Serve mkdocs for development.
+  tests                Run all tests with coverage.
+  test <name>          Run all tests maching the given <name>
+  tox                  Run all tests with tox.
+  hook                 Install pre-commit hook.
+  pre-commit           Run pre-commit hooks on all files.
+  pre-commit-update    Update all pre-commit hooks to latest versions.
+  mypy                 Run mypy on all files.
+
+  Use quotes (" ") if command contains flags (-h / --help)
+endef
+
+export helptext
+
 help:
-	@echo ""
-	@echo "Commands:"
-	@echo "  dev           Serve manual testing server"
-	@echo "  docs          Serve mkdocs for development."
-	@echo "  tests         Run all tests with coverage."
-	@echo "  test <name>   Run all tests maching the given <name>"
-	@echo "  tox           Run all tests with tox."
-	@echo "  hook          Install pre-commit hook."
-	@echo "  pre-commit    Run pre-commit hooks on all files."
+	@echo "$$helptext"
 
 dev:
 	@poetry run python manage.py runserver localhost:8000
@@ -41,3 +52,9 @@ hook:
 
 pre-commit:
 	@poetry run pre-commit run --all-files
+
+pre-commit-update:
+	@poetry run pre-commit autoupdate
+
+mypy:
+	@poetry run mypy tree_router/

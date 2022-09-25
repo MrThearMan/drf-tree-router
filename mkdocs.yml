@@ -13,7 +13,16 @@ theme:
     - console
 
 markdown_extensions:
-  - pymdownx.superfences:
+  pymdownx.superfences:
+    custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:mermaid2.fence_mermaid
+
+plugins:
+  - search:
+  - mermaid2:
+      version: 9.1.7
 
 extra_css:
   - css/docs.css

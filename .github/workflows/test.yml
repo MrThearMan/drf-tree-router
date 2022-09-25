@@ -48,7 +48,7 @@ jobs:
       - name: Set up poetry
         uses: abatilo/actions-poetry@v2.1.6
         with:
-          poetry-version: "1.2.0"
+          poetry-version: "1.2.1"
 
       - name: Load cached venv
         id: cache-venv
@@ -88,7 +88,7 @@ jobs:
       - name: Set up poetry
         uses: abatilo/actions-poetry@v2.1.6
         with:
-          poetry-version: "1.2.0"
+          poetry-version: "1.2.1"
 
       - name: Load cached venv
         id: cache-venv
