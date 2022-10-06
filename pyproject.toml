@@ -98,8 +98,6 @@ addopts = "-vv -s --log-cli-level=INFO"
 
 [tool.pylint.messages_control]
 disable = [
-    "bad-continuation",
-    "bad-whitespace",
     "missing-module-docstring",
     "missing-class-docstring",
     "missing-function-docstring",

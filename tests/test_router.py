@@ -62,8 +62,22 @@ def test_redirect1_view(client):
     assert result.status_code == status.HTTP_302_FOUND
 
 
+def test_redirect1_view__format(client):
+    data = {"email": "foo@bar.com"}
+    result = client.post("/redirect1/?format=json", data=data, content_type="application/json")
+
+    assert result.status_code == status.HTTP_302_FOUND
+
+
 def test_redirect2_view(client):
     data = {"email": "foo@bar.com"}
     result = client.post("/redirect2/0/", data=data, content_type="application/json")
+
+    assert result.status_code == status.HTTP_301_MOVED_PERMANENTLY
+
+
+def test_redirect2_view__format(client):
+    data = {"email": "foo@bar.com"}
+    result = client.post("/redirect2/0/?format=json", data=data, content_type="application/json")
 
     assert result.status_code == status.HTTP_301_MOVED_PERMANENTLY

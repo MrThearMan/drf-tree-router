@@ -124,12 +124,13 @@ class TreeRouter(DefaultRouter):
         if hasattr(self, "_urls"):  # pragma: no cover
             del self._urls
 
-    def redirect(
+    def redirect(  # pylint: disable=too-many-arguments
         self,
         path: str,
         reverse_key: str,
         regex: bool = True,
         permanent: bool = False,
+        query_string: bool = True,
         **kwargs: Any,
     ) -> None:
         """Add a redirect from a given path to the path resolved with the given reverse key.
@@ -138,13 +139,14 @@ class TreeRouter(DefaultRouter):
         :param reverse_key: Reverse key for `django.urls.reverse()` to the new path.
         :param regex: If False, use path converters for the path (e.g. <slug:title>).
         :param permanent: Is the redirect permanent (301) or not (302)?
+        :param query_string: Should query string be copied to the redirected url?
         :param kwargs: Additional arguments to pass to the view in order for the
                        APIRootView to find the view with `django.urls.reverse()`
                        for displaying in the root view.
         """
         self.register(
             path=path,
-            view=RedirectView.with_args(reverse_key, permanent),
+            view=RedirectView.with_args(reverse_key, permanent, query_string),
             reverse_key=f"{reverse_key}-{path}",
             regex=regex,
             **kwargs,

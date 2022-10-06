@@ -1,10 +1,12 @@
 import logging
 
+from django.http.response import HttpResponseRedirectBase
 from django.shortcuts import redirect
 from django.urls import NoReverseMatch
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.utils.urls import replace_query_param
 from rest_framework.views import APIView
 
 from .typing import Any, Dict, RootDictEntry, Type
@@ -22,8 +24,9 @@ logger = logging.getLogger(__name__)
 class RedirectView(APIView):
     """View that redirects every request to given path."""
 
-    reverse_key = ""
-    permanent = False
+    reverse_key: str = ""
+    permanent: bool = False
+    query_string: bool = True
 
     schema = None  # exclude from schema
     _ignore_model_permissions = True
@@ -31,37 +34,44 @@ class RedirectView(APIView):
     permission_classes = []  # defined by redirected view
 
     @classmethod
-    def with_args(cls, reverse_key: str, permanent: bool) -> Type["RedirectView"]:
-        return type("RedirectView", (cls,), {"reverse_key": reverse_key, "permanent": permanent})  # type: ignore
+    def with_args(cls, reverse_key: str, permanent: bool = False, query_string: bool = True) -> Type["RedirectView"]:
+        data = {"reverse_key": reverse_key, "permanent": permanent, "query_string": query_string}
+        return type(cls.__name__, (cls,), data)  # type: ignore
 
-    def general_reponse(self, request, *args, **kwargs):  # pylint: disable=unused-argument
+    def general_response(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:
         namespace = request.resolver_match.namespace
         reverse_key = namespace + ":" + self.reverse_key if namespace else self.reverse_key
-        return redirect(reverse_key, *args, permanent=self.permanent, **kwargs)
+        url = reverse(reverse_key, args=args, kwargs=kwargs, request=request)
 
-    def get(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+        if self.query_string:
+            for param, value in request.query_params.items():
+                url = replace_query_param(url, param, value)
 
-    def post(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+        return redirect(url, *args, permanent=self.permanent, **kwargs)
 
-    def put(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+    def get(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
-    def patch(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+    def post(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+    def put(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
-    def head(self, request, *args, **kwargs):  # pragma: no cover pylint: disable=method-hidden
-        return self.general_reponse(request, *args, **kwargs)
+    def patch(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
-    def options(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+    def delete(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
-    def trace(self, request, *args, **kwargs):  # pragma: no cover
-        return self.general_reponse(request, *args, **kwargs)
+    def head(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover pylint: disable=method-hidden
+        return self.general_response(request, *args, **kwargs)
+
+    def options(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
+
+    def trace(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+        return self.general_response(request, *args, **kwargs)
 
 
 class APIRootView(APIView):
