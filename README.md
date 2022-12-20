@@ -29,7 +29,7 @@ of your API endpoints. The router also accepts APIViews in addition to ViewSets.
 
 
 [coverage-badge]: https://coveralls.io/repos/github/MrThearMan/drf-tree-router/badge.svg?branch=main
-[status-badge]: https://img.shields.io/github/workflow/status/MrThearMan/drf-tree-router/Test
+[status-badge]: https://img.shields.io/github/actions/workflow/status/MrThearMan/drf-tree-router/test.yml?branch=main
 [pypi-badge]: https://img.shields.io/pypi/v/drf-tree-router
 [licence-badge]: https://img.shields.io/github/license/MrThearMan/drf-tree-router
 [repo-badge]: https://img.shields.io/github/last-commit/MrThearMan/drf-tree-router
