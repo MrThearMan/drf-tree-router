@@ -11,7 +11,6 @@ from rest_framework.views import APIView
 
 from .typing import Any, Dict, RootDictEntry, Type
 
-
 __all__ = [
     "APIRootView",
     "RedirectView",
