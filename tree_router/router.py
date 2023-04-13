@@ -25,7 +25,6 @@ from .typing import (
 from .views import APIRootView as RootView
 from .views import RedirectView
 
-
 __all__ = [
     "TreeRouter",
 ]
