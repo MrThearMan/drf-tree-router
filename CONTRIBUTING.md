@@ -180,6 +180,7 @@ By contributing, you agree that your contributions will be licensed under the [M
 [pull request]: https://github.com/MrThearMan/drf-tree-router/compare
 [fork]: https://github.com/MrThearMan/drf-tree-router/fork
 [setup]: https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md#setting-up-the-environment
+[tox]: https://tox.wiki/
 [code-guidelines]: https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md#guidelines-for-writing-code
 [docs-guidelines]: https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md#guidelines-for-writing-documentation
 [reviewed]: https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md#code-review-process

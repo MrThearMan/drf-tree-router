@@ -22,6 +22,8 @@ pip install drf-tree-router
 
 **Source Code**: [https://github.com/MrThearMan/drf-tree-router/](https://github.com/MrThearMan/drf-tree-router/)
 
+**Contributing**: [https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md](https://github.com/MrThearMan/drf-tree-router/blob/main/CONTRIBUTING.md)
+
 ---
 
 A Django REST Framework router that can be nested with other routers to create a tree-like structure
