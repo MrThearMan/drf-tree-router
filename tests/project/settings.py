@@ -48,7 +48,7 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(BASE_DIR / "django" / "testdb"),
+        "NAME": str(BASE_DIR / "project" / "testdb"),
     }
 }
 
@@ -82,8 +82,8 @@ LOGGING = {
     },
 }
 
-ROOT_URLCONF = "tests.django.urls"
-WSGI_APPLICATION = "tests.django.wsgi.application"
+ROOT_URLCONF = "tests.project.urls"
+WSGI_APPLICATION = "tests.project.wsgi.application"
 LANGUAGE_CODE = "en-us"
 LANGUAGES = [("en", "English"), ("fi", "Finland")]
 TIME_ZONE = "UTC"

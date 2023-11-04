@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
+from typing import Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
 
 from django.urls import URLPattern, URLResolver
 from rest_framework.views import APIView
@@ -7,6 +7,7 @@ from rest_framework.viewsets import ViewSetMixin
 __all__ = [
     "Any",
     "Callable",
+    "ClassVar",
     "Dict",
     "List",
     "Optional",

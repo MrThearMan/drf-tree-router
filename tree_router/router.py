@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 
 def _new_root_view(name: str, type_: Type[APIView], docstring: Optional[str]) -> Type[APIView]:
-    root_view: Type[APIView] = type(name, (type_,), {})  # noqa
+    root_view: Type[APIView] = type(name, (type_,), {})
     root_view.__doc__ = docstring
     return root_view
 
@@ -45,7 +45,7 @@ class TreeRouter(DefaultRouter):
     registry: List[RegistryEntry]
     APIRootView: Type[APIView] = RootView
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         *,
         name: Optional[str] = None,
@@ -55,8 +55,9 @@ class TreeRouter(DefaultRouter):
         redirects: Optional[Dict[str, str]] = None,
         regex: bool = True,
         **kwargs: Any,
-    ):
-        """New TreeRouter with given subroutes.
+    ) -> None:
+        """
+        New TreeRouter with given subroutes.
 
         :param name: Name of the router.
         :param documentation: Router documentation.
@@ -65,7 +66,6 @@ class TreeRouter(DefaultRouter):
         :param regex: If False, use paths and converters for paths by default (e.g. <slug:title>).
         :param kwargs: Additional arguments passed to DefaultRouter.
         """
-
         name = name if name is not None else self.APIRootView.__name__
         self.root_view_name = name
         self.APIRootView = _new_root_view(name, self.APIRootView, documentation)  # pylint: disable=C0103
@@ -86,11 +86,12 @@ class TreeRouter(DefaultRouter):
         self,
         path: str,
         view: ViewType,
-        reverse_key: str = None,
+        reverse_key: Optional[str] = None,
         regex: bool = True,
         **kwargs: Any,
     ) -> None:
-        """Register a view in the given path with the given reverse-key.
+        """
+        Register a view in the given path with the given reverse-key.
 
         :param path: Path to register the view at.
         :param view: View to register.
@@ -123,7 +124,7 @@ class TreeRouter(DefaultRouter):
         if hasattr(self, "_urls"):  # pragma: no cover
             del self._urls
 
-    def redirect(  # pylint: disable=too-many-arguments
+    def redirect(  # noqa: PLR0913
         self,
         path: str,
         reverse_key: str,
@@ -132,7 +133,8 @@ class TreeRouter(DefaultRouter):
         query_string: bool = True,
         **kwargs: Any,
     ) -> None:
-        """Add a redirect from a given path to the path resolved with the given reverse key.
+        """
+        Add a redirect from a given path to the path resolved with the given reverse key.
 
         :param path: Old path to redirect.
         :param reverse_key: Reverse key for `django.urls.reverse()` to the new path.
@@ -156,7 +158,7 @@ class TreeRouter(DefaultRouter):
             return super().get_routes(viewset)
         return []  # pragma: no cover
 
-    def get_api_root_view(self, api_urls: UrlsType = None) -> Callable[..., Any]:
+    def get_api_root_view(self, api_urls: UrlsType = None) -> Callable[..., Any]:  # noqa: ARG002
         api_root_dict: Dict[str, Tuple[str, Dict[str, Any]]] = {}
         list_name = self.routes[0].name
 

@@ -9,7 +9,7 @@ from rest_framework.reverse import reverse
 from rest_framework.utils.urls import replace_query_param
 from rest_framework.views import APIView
 
-from .typing import Any, Dict, RootDictEntry, Type
+from .typing import Any, ClassVar, Dict, RootDictEntry, Type
 
 __all__ = [
     "APIRootView",
@@ -29,13 +29,13 @@ class RedirectView(APIView):
 
     schema = None  # exclude from schema
     _ignore_model_permissions = True
-    authentication_classes = []  # defined by redirected view
-    permission_classes = []  # defined by redirected view
+    authentication_classes = []  # noqa: RUF012
+    permission_classes = []  # noqa: RUF012
 
     @classmethod
     def with_args(cls, reverse_key: str, permanent: bool = False, query_string: bool = True) -> Type["RedirectView"]:
         data = {"reverse_key": reverse_key, "permanent": permanent, "query_string": query_string}
-        return type(cls.__name__, (cls,), data)  # type: ignore
+        return type(cls.__name__, (cls,), data)  # type: ignore[return-value]
 
     def general_response(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:
         namespace = request.resolver_match.namespace
@@ -48,41 +48,41 @@ class RedirectView(APIView):
 
         return redirect(url, *args, permanent=self.permanent, **kwargs)
 
-    def get(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def post(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def put(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def put(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def patch(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def patch(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def delete(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def delete(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def head(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover pylint: disable=method-hidden
+    def head(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def options(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def options(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
-    def trace(self, request: Request, *args: Any, **kwargs: Any):  # pragma: no cover
+    def trace(self, request: Request, *args: Any, **kwargs: Any) -> HttpResponseRedirectBase:  # pragma: no cover
         return self.general_response(request, *args, **kwargs)
 
 
 class APIRootView(APIView):
     """Welcome! This is the API root."""
 
-    api_root_dict: Dict[str, RootDictEntry] = {}
+    api_root_dict: ClassVar[Dict[str, RootDictEntry]] = {}
 
     schema = None  # exclude from schema
     _ignore_model_permissions = True
 
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = []  # noqa: RUF012
+    permission_classes = []  # noqa: RUF012
 
     def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         routes = {}
