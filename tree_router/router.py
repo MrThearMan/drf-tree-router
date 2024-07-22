@@ -124,7 +124,7 @@ class TreeRouter(DefaultRouter):
         if hasattr(self, "_urls"):  # pragma: no cover
             del self._urls
 
-    def redirect(  # noqa: PLR0913
+    def redirect(
         self,
         path: str,
         reverse_key: str,
