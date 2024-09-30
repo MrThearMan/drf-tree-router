@@ -99,7 +99,7 @@ class APIRootView(APIView):
                     args=args,
                     kwargs=entry.kwargs,
                     request=request,
-                    format=kwargs.get("format", None),
+                    format=kwargs.get("format"),
                 )
             except NoReverseMatch as error:  # pragma: no cover
                 logger.info(f"No reverse found for {reverse_key!r} with kwargs {entry.kwargs}.", exc_info=error)
