@@ -33,6 +33,13 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
+def _compat_route_to_regex(path: str) -> tuple[str, dict[str, Any]]:
+    try:
+        return _route_to_regex(path, is_endpoint=False)
+    except TypeError:
+        return _route_to_regex(path)
+
+
 def _new_root_view(name: str, type_: Type[APIView], docstring: Optional[str]) -> Type[APIView]:
     root_view: Type[APIView] = type(name, (type_,), {})
     root_view.__doc__ = docstring
@@ -105,7 +112,7 @@ class TreeRouter(DefaultRouter):
             reverse_key = self.get_default_basename(view)  # pragma: no cover
 
         if not regex or not self.regex:
-            path, _ = _route_to_regex(path, is_endpoint=False)
+            path, _ = _compat_route_to_regex(path)
             path = path[1:]  # remove leading ^
 
         # Construct default values for regex parts
