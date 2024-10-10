@@ -105,7 +105,7 @@ class TreeRouter(DefaultRouter):
             reverse_key = self.get_default_basename(view)  # pragma: no cover
 
         if not regex or not self.regex:
-            path, _ = _route_to_regex(path)
+            path, _ = _route_to_regex(path, is_endpoint=False)
             path = path[1:]  # remove leading ^
 
         # Construct default values for regex parts

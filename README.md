@@ -10,7 +10,6 @@
 
 [![Python Version][version-badge]][pypi]
 [![Django Version][django-badge]][pypi]
-[![DRF Version][drf-badge]][pypi]
 
 ```shell
 pip install drf-tree-router
@@ -29,7 +28,6 @@ pip install drf-tree-router
 A Django REST Framework router that can be nested with other routers to create a tree-like structure
 of your API endpoints. The router also accepts APIViews in addition to ViewSets.
 
-
 [coverage-badge]: https://coveralls.io/repos/github/MrThearMan/drf-tree-router/badge.svg?branch=main
 [status-badge]: https://img.shields.io/github/actions/workflow/status/MrThearMan/drf-tree-router/test.yml?branch=main
 [pypi-badge]: https://img.shields.io/pypi/v/drf-tree-router
@@ -39,7 +37,6 @@ of your API endpoints. The router also accepts APIViews in addition to ViewSets.
 [version-badge]: https://img.shields.io/pypi/pyversions/drf-tree-router
 [downloads-badge]: https://img.shields.io/pypi/dm/drf-tree-router
 [django-badge]: https://img.shields.io/pypi/djversions/drf-tree-router
-[drf-badge]: https://img.shields.io/badge/drf%20versions-3.12%20%7C%203.13%20%7C%203.14-blue
 
 [coverage]: https://coveralls.io/github/MrThearMan/drf-tree-router?branch=main
 [status]: https://github.com/MrThearMan/drf-tree-router/actions/workflows/test.yml
