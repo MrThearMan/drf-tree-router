@@ -847,13 +847,13 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "pymdown-extensions"
-version = "10.13"
+version = "10.14"
 description = "Extension pack for Python Markdown."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pymdown_extensions-10.13-py3-none-any.whl", hash = "sha256:80bc33d715eec68e683e04298946d47d78c7739e79d808203df278ee8ef89428"},
-    {file = "pymdown_extensions-10.13.tar.gz", hash = "sha256:e0b351494dc0d8d14a1f52b39b1499a00ef1566b4ba23dc74f1eba75c736f5dd"},
+    {file = "pymdown_extensions-10.14-py3-none-any.whl", hash = "sha256:202481f716cc8250e4be8fce997781ebf7917701b59652458ee47f2401f818b5"},
+    {file = "pymdown_extensions-10.14.tar.gz", hash = "sha256:741bd7c4ff961ba40b7528d32284c53bc436b8b1645e8e37c3e57770b8700a34"},
 ]
 
 [package.dependencies]
@@ -861,7 +861,7 @@ markdown = ">=3.6"
 pyyaml = "*"
 
 [package.extras]
-extra = ["pygments (>=2.12)"]
+extra = ["pygments (>=2.19.1)"]
 
 [[package]]
 name = "pyproject-api"
@@ -1274,4 +1274,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "75b8e1285416ae07dbe5e9781f7ed87d489201a9ce761c37cf837e57547df861"
+content-hash = "fc5abc8c6ae36de4e841b20a2767e075b7a3f0187e7bd1241320e9f55f99501e"
