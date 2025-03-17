@@ -54,7 +54,7 @@ djangorestframework = ">=3.14.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "8.3.5"
-coverage = "7.6.12"
+coverage = "7.7.0"
 pytest-django = "4.10.0"
 tox = "4.24.2"
 tox-gh-actions = "3.3.0"
