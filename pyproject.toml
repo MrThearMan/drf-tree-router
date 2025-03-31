@@ -1,17 +1,12 @@
-[tool.poetry]
+[project]
 name = "drf-tree-router"
-version = "0.2.2"
+version = "0.2.3"
 description = "Create browsable routes by nesting routers in a tree-like structure."
 authors = [
-    "Matti Lamppu <lamppu.matti.akseli@gmail.com>",
-]
-packages = [
-    { include = "tree_router" },
+    { name = "Matti Lamppu", email = "lamppu.matti.akseli@gmail.com" },
 ]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/MrThearMan/drf-tree-router"
-repository = "https://github.com/MrThearMan/drf-tree-router"
 keywords = [
     "django",
     "djangorestframework",
@@ -36,20 +31,25 @@ classifiers = [
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
 ]
-include = [
-    "README.md",
-    "LICENSE",
-]
-exclude = [
-    "tests",
+requires-python = ">=3.10,<4"
+dynamic = [
+    "dependencies",
 ]
 
-[tool.poetry.urls]
+[project.urls]
+"Homepage" = "https://mrthearman.github.io/drf-tree-router"
+"Repository" = "https://github.com/MrThearMan/drf-tree-router"
 "Bug Tracker" = "https://github.com/MrThearMan/drf-tree-router/issues"
+"Documentation" = "https://mrthearman.github.io/drf-tree-router"
+
+[tool.poetry]
+requires-poetry = ">=2.0.0"
+packages = [
+    { include = "tree_router" },
+]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4"
-Django = ">=3.2"
+Django = ">=4.2"
 djangorestframework = ">=3.14.0"
 
 [tool.poetry.group.test.dependencies]
@@ -76,10 +76,10 @@ line-length = 120
 exclude = [
     "tests/*",
 ]
-typing-modules = [
+lint.typing-modules = [
     "tree_router.typing",
 ]
-select = [
+lint.select = [
     "A",        # flake8-builtins
     "ANN",      # flake8-annotations
     "ARG",      # flake8-unused-arguments
@@ -120,9 +120,7 @@ select = [
     "TRY",      # tryceratops
     "W",        # pycodestyle warnings
 ]
-ignore = [
-    "ANN101",   # Missing type annotation for `self` in method
-    "ANN102",   # Missing type annotation for `cls` in method
+lint.ignore = [
     "ANN401",   # Any-typing allowed
     "FBT001",   # Boolean positional argument in function definition
     "FBT002",   # Boolean positional argument in method definition
@@ -200,10 +198,7 @@ deps =
     django50: Django >=5.0,<5.1
     django51: Django >=5.1,<5.2
 
-    django42: djangorestframework >=3.14.0,<3.15.0
-    django50: djangorestframework >=3.14.0,<3.15.0
-    django51: djangorestframework >=3.15.0,<3.16.0
-
+    djangorestframework >=3.15.0,<3.16.0
     pytz
     pytest
     coverage
@@ -213,5 +208,5 @@ commands =
 """
 
 [build-system]
-requires = ["poetry-core>=1.9.0"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"

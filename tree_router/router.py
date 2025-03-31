@@ -116,7 +116,7 @@ class TreeRouter(DefaultRouter):
             path = path[1:]  # remove leading ^
 
         # Construct default values for regex parts
-        params = {key: "..." for key in re.compile(path).groupindex}
+        params = dict.fromkeys(re.compile(path).groupindex, "...")
         params.update(kwargs)
         self.registry.append(
             RegistryEntry(
