@@ -22,16 +22,15 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Framework :: Django",
-    "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
 ]
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11,<4"
 dynamic = [
     "dependencies",
 ]
@@ -49,26 +48,22 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-Django = ">=4.2"
+Django = ">=5.0"
 djangorestframework = ">=3.14.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "8.4.1"
-coverage = "7.10.2"
+pytest = "8.4.2"
+coverage = "7.10.6"
 pytest-django = "4.11.1"
-tox = "4.28.4"
-tox-gh-actions = "3.3.0"
+nox = "2025.5.1"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "1.6.1"
 pymdown-extensions = "10.16.1"
-mkdocs-mermaid2-plugin = "1.2.1"
+mkdocs-mermaid2-plugin = "1.2.2"
 
 [tool.poetry.group.lint.dependencies]
-mypy = "1.17.1"
-pre-commit = "4.2.0"
-django-stubs = "5.2.2"
-djangorestframework-stubs = "3.16.1"
+pre-commit = " 4.3.0"
 
 [tool.ruff]
 fix = true
@@ -143,20 +138,8 @@ lint.ignore = [
     "W191",     # tab-indentation
 ]
 
-[tool.mypy]
-python_version = "3.13"
-warn_return_any = "True"
-warn_unused_configs = "True"
-plugins = [
-    "mypy_django_plugin.main",
-    "mypy_drf_plugin.main",
-]
-
 [tool.pycln]
 all = true
-
-[tool.django-stubs]
-django_settings_module = "tests.project.settings"
 
 [tool.coverage.run]
 relative_files = true
@@ -173,39 +156,6 @@ exclude_lines = [
     "except ImportError:",
     "pragma: no cover",
 ]
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py{39, 310, 311, 312, 313}-django{42, 50, 51}
-isolated_build = true
-
-[gh-actions]
-python =
-    3.10: py310
-    3.11: py311
-    3.12: py312
-    3.13: py313
-
-[testenv]
-allowlist_externals =
-    poetry
-setenv =
-    PYTHONPATH = {toxinidir}
-    DJANGO_SETTINGS_MODULE = tests.project.settings
-deps =
-    django42: Django >=4.2,<4.3
-    django50: Django >=5.0,<5.1
-    django51: Django >=5.1,<5.2
-
-    djangorestframework >=3.15.0,<3.16.0
-    pytz
-    pytest
-    coverage
-    pytest-django
-commands =
-    coverage run -m pytest -vv -s --log-cli-level=INFO
-"""
 
 [build-system]
 requires = ["poetry-core>=2.0.0"]
