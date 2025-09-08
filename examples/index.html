@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Examples - Django REST Framework Tree Router</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/docs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Examples";
+        var mkdocs_page_input_path = "examples.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/console.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Django REST Framework Tree Router
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Examples</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#subrouters">Subrouters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-routes">Quick routes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#path-parameters">Path parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#redirects">Redirects</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Django REST Framework Tree Router</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="examples">Examples</h1>
+<p>Create a router for the base level of the API.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tree_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeRouter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.views</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIView</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.viewsets</span><span class="w"> </span><span class="kn">import</span> <span class="n">ViewSet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.urls</span><span class="w"> </span><span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;router&quot;</span><span class="p">,</span>
+    <span class="n">documentation</span><span class="o">=</span><span class="s2">&quot;This is my router&#39;s documentation&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="n">APIView</span><span class="p">,</span> <span class="s2">&quot;view&quot;</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;viewset&quot;</span><span class="p">,</span> <span class="n">ViewSet</span><span class="p">,</span> <span class="s2">&quot;viewset&quot;</span><span class="p">)</span>
+
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;api/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">))</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>In <a href="https://www.django-rest-framework.org/topics/browsable-api/">DRF Browsable API</a>, the <code>name</code> argument will be displayed as the header
+of the root view, and the <code>documentation</code> as the body text. This results in the following
+API structure:</p>
+<div class="highlight"><pre><span></span><code>router
+├── view
+└── viewset
+</code></pre></div>
+<hr />
+<h2 id="subrouters">Subrouters</h2>
+<p>You can add other routers as subroutes in the API tree:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tree_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeRouter</span>
+
+<span class="n">sub_router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sub_router&quot;</span><span class="p">,</span>
+    <span class="n">documentation</span><span class="o">=</span><span class="s2">&quot;This is my sub-router&#39;s documentation&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sub_router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;subview&quot;</span><span class="p">,</span> <span class="n">APIView</span><span class="p">,</span> <span class="s2">&quot;subview&quot;</span><span class="p">)</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;router&quot;</span><span class="p">,</span>
+    <span class="n">documentation</span><span class="o">=</span><span class="s2">&quot;This is my routers documentation&quot;</span><span class="p">,</span>
+    <span class="n">subrouters</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;sub_router&quot;</span><span class="p">:</span> <span class="n">sub_router</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Can also do this outside initialization</span>
+<span class="n">router</span><span class="o">.</span><span class="n">subrouters</span><span class="p">[</span><span class="s2">&quot;sub_router&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub_router</span>
+</code></pre></div>
+<p>Now the API structure looks like this:</p>
+<div class="highlight"><pre><span></span><code>my_router
+├── view
+├── viewset
+├── sub_router
+│   └── subview
+</code></pre></div>
+<p>You can nest any number of TreeRouters like this, and even mix in other
+routers that derive form DefaultRouter. You can of course extend a TreeRouter's
+registry from another router also.</p>
+<blockquote>
+<p>Note that when you add a router as a subrouter in another router, the name defined
+for the subrouter during its initialization will be ignored in favor of the key
+in the subrouters definition.</p>
+</blockquote>
+<hr />
+<h2 id="quick-routes">Quick routes</h2>
+<p>You can also register routes to the router at initialization.
+Registered view will use the key of the dictionary as its prefix
+and basename (i.e., path and reverse lookup-key). You cannot pass
+any arguments to the view like this like you can with <code>TreeRouter.register</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tree_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeRouter</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;router&quot;</span><span class="p">,</span>
+    <span class="n">routes</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;view&quot;</span><span class="p">:</span> <span class="n">APIView</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="path-parameters">Path parameters</h2>
+<p>You can add path parameters with regex, or with path converters. TreeRouter adds a <code>...</code>
+to each parameter to try to reverse the url, so it can be shown in the router root view.
+This only works for string parameters, so you must provide a default for other types with
+keyword arguments. To use path converters, add <code>regex=False</code> to the <code>TreeRouter.register</code>
+to use it at a specific path, or at router initialization to use them for all paths
+in the router by default.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tree_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeRouter</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;router&quot;</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># default</span>
+<span class="p">)</span>
+
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s2">&quot;subview/(?P&lt;name&gt;.+)&quot;</span><span class="p">,</span>
+    <span class="n">APIView</span><span class="p">,</span>
+    <span class="s2">&quot;subview-name-1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s2">&quot;subview/(?P&lt;name&gt;\d+)&quot;</span><span class="p">,</span>
+    <span class="n">APIView</span><span class="p">,</span>
+    <span class="s2">&quot;subview-name-2&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;subview/&lt;str:name&gt;&quot;</span><span class="p">,</span>
+    <span class="n">APIView</span><span class="p">,</span>
+    <span class="s2">&quot;subview-name-3&quot;</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="redirects">Redirects</h2>
+<p>You can add redirects quickly with the <code>redirects</code> argument at router initialization,
+or with the <code>TreeRouter.redirect</code> method. Redirects given at router initialization are
+always non-permanent redirects (similar restrictions to quick routes apply here as well),
+but you can create permanent redirects by giving <code>permanent=True</code> to <code>TreeRouter.redirect</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tree_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeRouter</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">TreeRouter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;router&quot;</span><span class="p">,</span>
+    <span class="n">redirects</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;old/path&quot;</span><span class="p">:</span> <span class="s2">&quot;new-path-key-1&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">router</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span>
+    <span class="s2">&quot;old/path/(?P&lt;name&gt;\d+)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;new-path-key-2&quot;</span><span class="p">,</span>
+    <span class="n">permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
