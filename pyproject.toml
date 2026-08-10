@@ -50,13 +50,13 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-Django = ">=5.2.16"
-djangorestframework = ">=3.14.0"
+Django = ">=5.2.17"
+djangorestframework = ">=3.17.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "9.1.1"
-coverage = "7.15.2"
-pytest-django = "4.12.0"
+coverage = "7.15.4"
+pytest-django = "4.13.0"
 nox = "2026.7.11"
 
 [tool.poetry.group.docs.dependencies]
